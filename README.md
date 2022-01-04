@@ -137,8 +137,8 @@ the setup to get the Docker containers running is as follows:
   [line 40](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java#40)
   indicates that the Docker compose rule should be applied for each test method. This is good for test isolation, since
   each test will start from a completely blank Postgres database, however it also introduces a lot of time spent waiting
-  for Docker resources to be created and destroyed. An integration test that only needed the Docker resources to be
-  applied once for the entire test class could replace the `@Rule` annotation with `@ClassRule`.
+  for Docker resources to be created and destroyed. An integration test that only needed the rule be applied once for
+  the entire test class could replace the `@Rule` annotation with `@ClassRule`.
 
 ## Running a Test Stack Application Manually
 
