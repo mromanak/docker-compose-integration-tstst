@@ -67,8 +67,8 @@ custom task types, which is done on [lines 32-33](build.gradle#L32).
 
 ### prepareDockerfile
 
-Lines 35-41 of [build.gradle](build.gradle#L35) define a
-[Dockerfile task] (https://bmuschko.github.io/gradle-docker-plugin/api/com/bmuschko/gradle/docker/tasks/image/Dockerfile.html)
+[Lines 35-41](build.gradle#L35) define a
+[Dockerfile task](https://bmuschko.github.io/gradle-docker-plugin/api/com/bmuschko/gradle/docker/tasks/image/Dockerfile.html)
 that uses [gradle-docker-plugin](https://github.com/bmuschko/gradle-docker-plugin) to create a Dockerfile at
 `build/docker/Dockerfile`. The Dockerfile has the following instructions:
 
@@ -79,7 +79,7 @@ that uses [gradle-docker-plugin](https://github.com/bmuschko/gradle-docker-plugi
 
 ### prepareDockerCode
 
-Lines 43-48 of [build.gradle](build.gradle#L43) define a
+[Lines 43-48](build.gradle#L43) define a
 [Copy task](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.Copy.html) that builds the project's Spring Boot
 jar and copies it to `build/docker/docker-compose-integration-tstst.jar`. When Gradle runs the Dockerfile during the
 `buildDockerImage` task, it will use `build/docker/` as its root directory, and will throw an error if any Dockerfile
@@ -88,7 +88,7 @@ that all the code needed to build the Docker Image exists in the correct place.
 
 ### buildDockerImage
 
-Lines 43-48 of [build.gradle](build.gradle#L43) define a
+[Lines 43-48](build.gradle#L43) define a
 [DockerBuildImage](https://bmuschko.github.io/gradle-docker-plugin/api/com/bmuschko/gradle/docker/tasks/image/DockerBuildImage.html)
 that depends on the `prepareDockerfile` and `prepareDockerCode` tasks to build the Docker image and push it to the local
 repository under the name `dcit`. The image receives two tags: `latest` and the version number that is set on
@@ -96,16 +96,16 @@ repository under the name `dcit`. The image receives two tags: `latest` and the 
 
 ### test
 
-Lines 57-59 of [build.gradle](build.gradle#L57) extend the default `test` task to depend on `buildDockerImage`.
+[Lines 57-59](build.gradle#L57) extend the default `test` task to depend on `buildDockerImage`.
 
 ### unitTest
 
-Lines 61-65 of [build.gradle](build.gradle#L61) create a new test task that only runs test classes and methods annotated
+[Lines 61-65](build.gradle#L61) create a new test task that only runs test classes and methods annotated
 with `@Category(UnitTest.class)`.
 
 ### dockerIntegrationTest
 
-Lines 67-72 of [build.gradle](build.gradle#67) create a new test task that depends on `buildDockerImage` and only runs
+[Lines 67-72](build.gradle#67) create a new test task that depends on `buildDockerImage` and only runs
 test classes and methods annotated with `@Category(DockerIntegrationTest.class)`.
 
 ## JUnit Setup
@@ -121,10 +121,10 @@ Looking at
 [ItemControllerDockerIntegrationTest](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java)
 , the setup to get the Docker containers running is as follows:
 
-* [Lines 31-38]([ItemControllerDockerIntegrationTest](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java#31)
+* [Lines 31 38](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java#31)
   configure the local `DockerMachine` with some environment variables. `DockerMachine` does not a method to set an env
   file, so each environment variable must be set individually.
-* [Lines 41-47]([ItemControllerDockerIntegrationTest](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java#41)
+* [Lines 41-47](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java#41)
   define the `DockerComposeRule` that will handle standing up the Docker resources. The rule will:
     * Use the `DockerMachine` defined above.
     * Create a Docker Compose stack using.
