@@ -121,7 +121,7 @@ Looking at
 [ItemControllerDockerIntegrationTest](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java)
 , the setup to get the Docker containers running is as follows:
 
-* [Lines 31 38](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java#31)
+* [Lines 31-38](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java#31)
   configure the local `DockerMachine` with some environment variables. `DockerMachine` does not a method to set an env
   file, so each environment variable must be set individually.
 * [Lines 41-47](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java#41)
