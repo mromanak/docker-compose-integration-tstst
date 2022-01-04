@@ -1,0 +1,72 @@
+plugins {
+    id 'com.bmuschko.docker-remote-api' version '7.1.0'
+    id "io.freefair.lombok" version "6.3.0"
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'org.springframework.boot' version '2.6.2'
+}
+
+group = 'com.mromanak'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+
+    runtimeOnly 'org.postgresql:postgresql:42.3.1'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation 'com.palantir.docker.compose:docker-compose-rule-junit4:1.7.0'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+task prepareDockerfile(type: Dockerfile) {
+    from 'openjdk:slim'
+    copyFile 'docker-compose-integration-tstst.jar', '/app/docker-compose-integration-tstst.jar'
+    exposePort 8080
+    entryPoint 'java'
+    defaultCommand('-jar', '/app/docker-compose-integration-tstst.jar')
+}
+
+task prepareDockerCode(type: Copy) {
+    dependsOn bootJar
+    from "build/libs/docker-compose-integration-tstst-${project.version}.jar"
+    rename("docker-compose-integration-tstst-${project.version}.jar", "docker-compose-integration-tstst.jar")
+    into "build/docker/"
+}
+
+task buildDockerImage (type: DockerBuildImage) {
+    dependsOn prepareDockerfile
+    dependsOn prepareDockerCode
+    images.add("dcit:${project.version}")
+    images.add('dcit:latest')
+}
+
+test {
+    dependsOn buildDockerImage
+}
+
+task unitTest(type: Test) {
+    useJUnit {
+        includeCategories 'com.mromanak.dockercomposeintegrationtstst.utils.junit.UnitTest'
+    }
+}
+
+task dockerIntegrationTest(type: Test) {
+    dependsOn buildDockerImage
+    useJUnit {
+        includeCategories 'com.mromanak.dockercomposeintegrationtstst.utils.junit.DockerIntegrationTest'
+    }
+}

@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+  api:
+    image: dcit
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      DDL_MODE: "${DDL_MODE}"
+      POSTGRES_HOST: "${POSTGRES_HOST}"
+      POSTGRES_PORT: "${POSTGRES_PORT}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
