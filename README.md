@@ -61,9 +61,9 @@ and integration tasks to be run independently:
 ## Gradle Tasks
 
 Most of the Docker magic in this project is handled by Gradle, using
-[gradle-docker-plugin](https://github.com/bmuschko/gradle-docker-plugin). This plugin is imported on line 2 of
-[build.gradle](build.gradle#L2). The only slightly awkward aspect of the plugin is the need to manually import its
-custom task types, which is done on [lines 32-33](build.gradle#L32).
+[gradle-docker-plugin](https://github.com/bmuschko/gradle-docker-plugin). This plugin is imported on
+[line 2 of build.gradle](build.gradle#L2). The only slightly awkward aspect of the plugin is the need to manually import
+its custom task types, which is done on [lines 32-33](build.gradle#L32).
 
 ### prepareDockerfile
 
