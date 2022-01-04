@@ -69,8 +69,7 @@ custom task types, which is done on [lines 32-33](build.gradle#L32).
 
 [Lines 35-41](build.gradle#L35) define a
 [Dockerfile task](https://bmuschko.github.io/gradle-docker-plugin/api/com/bmuschko/gradle/docker/tasks/image/Dockerfile.html)
-that uses [gradle-docker-plugin](https://github.com/bmuschko/gradle-docker-plugin) to create a Dockerfile at
-`build/docker/Dockerfile`. The Dockerfile has the following instructions:
+that creates a Dockerfile at `build/docker/Dockerfile`. The Dockerfile has the following instructions:
 
 * Use `openjdk:slim` as the base image for our Docker image
 * Copy the Spring Boot jar from `build/docker/` into the `/app/` directory on the image
