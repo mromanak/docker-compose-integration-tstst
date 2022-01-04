@@ -89,7 +89,7 @@ that all the code needed to build the Docker Image exists in the correct place.
 ### buildDockerImage
 
 [Lines 43-48](build.gradle#L43) define a
-[DockerBuildImage](https://bmuschko.github.io/gradle-docker-plugin/api/com/bmuschko/gradle/docker/tasks/image/DockerBuildImage.html)
+[DockerBuildImage task](https://bmuschko.github.io/gradle-docker-plugin/api/com/bmuschko/gradle/docker/tasks/image/DockerBuildImage.html)
 that depends on the `prepareDockerfile` and `prepareDockerCode` tasks to build the Docker image and push it to the local
 repository under the name `dcit`. The image receives two tags: `latest` and the version number that is set on
 [line 10](build.gradle#L10).
@@ -118,8 +118,8 @@ JUnit5 `Extension` that wraps `docker-compose-rule` and try to remove the JUnit4
 where my focus is at the moment.
 
 Looking at
-[ItemControllerDockerIntegrationTest](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java)
-, the setup to get the Docker containers running is as follows:
+[ItemControllerDockerIntegrationTest](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java),
+the setup to get the Docker containers running is as follows:
 
 * [Lines 31-38](java/com/mromanak/dockercomposeintegrationtstst/controller/ItemControllerDockerIntegrationTest.java#31)
   configure the local `DockerMachine` with some environment variables. `DockerMachine` does not a method to set an env
@@ -186,8 +186,8 @@ response):
 
 ```shell
 curl --request POST 'http://localhost:8080/repository/item/123' \
---header 'Content-Type: application/json' \
---data-raw '{
+  --header 'Content-Type: application/json' \
+  --data-raw '{
     "name": "Perfectly Generic Object",
     "description": "A featureless cube."
 }'
